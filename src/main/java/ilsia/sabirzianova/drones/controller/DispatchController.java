@@ -1,7 +1,7 @@
 package ilsia.sabirzianova.drones.controller;
 
-import ilsia.sabirzianova.drones.model.Drone;
-import ilsia.sabirzianova.drones.model.Medication;
+import ilsia.sabirzianova.drones.entity.DroneEntity;
+import ilsia.sabirzianova.drones.entity.MedicationEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,19 +10,19 @@ import java.util.List;
 public class DispatchController {
     private static final Logger log = LoggerFactory.getLogger(DispatchController.class);
 
-    public void registerDrone(Drone drone) {
+    public void registerDrone(DroneEntity drone) {
     }
 
-    public void loadDrone(Integer droneSerialNum, Medication medication) {
+    public void loadDrone(Integer droneSerialNum, MedicationEntity medication) {
     }
 
-    public void checkMedication(Drone drone) {
+    public void checkMedication(DroneEntity drone) {
     }
 
-    public List<Drone> checkAvailableDrones() {
+    public List<DroneEntity> checkAvailableDrones() {
         return null;
     }
 
-    public void checkBattery(Drone drone) {
+    public void checkBattery(DroneEntity drone) {
     }
 }

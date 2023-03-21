@@ -1,4 +1,4 @@
-package ilsia.sabirzianova.drones.shedulingtasks;
+package ilsia.sabirzianova.drones.sheduledtasks;
 
 import ilsia.sabirzianova.drones.services.DronesService;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -10,6 +10,5 @@ public class DronesScheduledTask {
 
     @Scheduled(fixedDelay = 5 * 60 * 1_000)
     public void checkBattery() {
-        dronesService.checkBattery();
     }
 }

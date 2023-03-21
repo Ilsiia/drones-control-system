@@ -1,11 +1,22 @@
 package ilsia.sabirzianova.drones.services;
 
-import org.springframework.scheduling.annotation.Scheduled;
+import ilsia.sabirzianova.drones.entity.DroneEntity;
+import ilsia.sabirzianova.drones.model.Drone;
+import ilsia.sabirzianova.drones.repository.DroneCrudRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public class DronesServiceImpl {
+@Service("droneService")
+public class DronesServiceImpl implements DronesService {
+    @Autowired
+    private DroneCrudRepository droneCrudRepository;
 
-    @Scheduled(fixedDelay = 10 * 60 * 1_000)
-    void checkBattery() {
+    @Override
+    public void register(Drone drone) {
+        droneCrudRepository.save(createEntity(drone));
+    }
 
+    private DroneEntity createEntity(Drone drone) {
+        return new DroneEntity(drone.getSerialNumber(), drone.getModel(), drone.getWeightLimit());
     }
 }

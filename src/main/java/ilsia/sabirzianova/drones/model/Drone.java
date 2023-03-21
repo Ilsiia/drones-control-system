@@ -1,51 +1,52 @@
 package ilsia.sabirzianova.drones.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
+import ilsia.sabirzianova.drones.entity.MedicationEntity;
+import ilsia.sabirzianova.drones.enums.DroneModel;
+import ilsia.sabirzianova.drones.enums.DroneState;
+import ilsia.sabirzianova.drones.exceptions.LoadingException;
 
-@Entity
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Drone {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    @NotBlank(message = "Drone with this serial number already exists")
-    Integer serialNumber; // (100 characters max);
-    String model; // (Lightweight, Middleweight, Cruiserweight, Heavyweight);
-    Integer weightLimit; // limit (500gr max);
-    Integer batteryCapacity; // (percentage);
-    String state; // (IDLE, LOADING, LOADED, DELIVERING, DELIVERED, RETURNING).
+    String serialNumber;//100 characters max
+    Integer batteryCapacity; // percentage
+    DroneModel model;//(Lightweight, Middleweight, Cruiserweight, Heavyweight)
+    Integer weightLimit;//500gr max;
+    List<MedicationEntity> medications;
+    DroneState state; //IDLE, LOADING, LOADED, DELIVERING, DELIVERED, RETURNING
 
-    public Drone(Integer serialNumber, String model, Integer weightLimit, Integer batteryCapacity) {
+    public Drone(String serialNumber, Integer batteryCapacity, DroneModel model, Integer weightLimit, List<MedicationEntity> medications, DroneState state) {
         this.serialNumber = serialNumber;
+        this.batteryCapacity = batteryCapacity;
         this.model = model;
         this.weightLimit = weightLimit;
+        this.medications = medications;
+        this.state = state;
+    }
+
+    public Integer getBatteryCapacity() {
+        return batteryCapacity;
+    }
+
+    public void setBatteryCapacity(Integer batteryCapacity) {
         this.batteryCapacity = batteryCapacity;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public Integer getSerialNumber() {
+    public String getSerialNumber() {
         return serialNumber;
     }
 
-    public void setSerialNumber(Integer serialNumber) {
+    public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
     }
 
-    public String getModel() {
+    public DroneModel getModel() {
         return model;
     }
 
-    public void setModel(String model) {
+    public void setModel(DroneModel model) {
         this.model = model;
     }
 
@@ -57,36 +58,52 @@ public class Drone {
         this.weightLimit = weightLimit;
     }
 
-    public Integer getBatteryCapacity() {
-        return batteryCapacity;
+    public List<MedicationEntity> getMedications() {
+        if (medications == null) {
+            medications = new ArrayList<>();
+        }
+        return medications;
     }
 
-    public void setBatteryCapacity(Integer batteryCapacity) {
-        this.batteryCapacity = batteryCapacity;
+    public void setMedications(List<MedicationEntity> medications) {
+        this.medications = medications;
     }
 
-    public String getState() {
+    public void load(@NotNull MedicationEntity medication) {
+        if (getLoadedMedicationsWeight() + medication.getWeight() < this.weightLimit) {
+            this.getMedications().add(medication);
+        } else {
+            throw new LoadingException("Drone with serial number %s reached cargo weight limit.");
+        }
+    }
+
+    public void loadAll(@NotNull List<MedicationEntity> medications) {
+        for (MedicationEntity medication : medications) {
+            this.load(medication);
+        }
+    }
+
+    public void unload(@NotNull MedicationEntity medication) {
+        this.getMedications().remove(medication);
+    }
+
+    public void unloadAll() {
+        this.medications = null;
+    }
+
+    public Integer getLoadedMedicationsWeight() {
+        int result = 0;
+        for (MedicationEntity medication : this.getMedications()) {
+            result = +medication.getWeight();
+        }
+        return result;
+    }
+
+    public DroneState getState() {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(DroneState state) {
         this.state = state;
-    }
-
-    Medication medication;
-
-    //loading a drone with medication items;
-    public void load(Medication medication) {
-        this.medication = medication;
-    }
-
-    public void unload() {
-        this.medication = null;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("Drone[serialNumber=%s, model='%s', weightLimit='%s', batteryCapacity='%s', state='%s']",
-                serialNumber, model, weightLimit, batteryCapacity, state);
     }
 }
