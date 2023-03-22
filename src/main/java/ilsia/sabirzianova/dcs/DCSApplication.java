@@ -1,4 +1,4 @@
-package ilsia.sabirzianova.drones;
+package ilsia.sabirzianova.dcs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,8 +6,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-public class DronesApplication {
+public class DCSApplication {
     public static void main(String[] args) {
-        SpringApplication.run(DronesApplication.class, args);
+        SpringApplication.run(DCSApplication.class, args);
     }
 }

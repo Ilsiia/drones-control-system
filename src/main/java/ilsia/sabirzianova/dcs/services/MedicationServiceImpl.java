@@ -1,9 +1,9 @@
-package ilsia.sabirzianova.drones.services;
+package ilsia.sabirzianova.dcs.services;
 
-import ilsia.sabirzianova.drones.entity.MedicationEntity;
-import ilsia.sabirzianova.drones.exceptions.IllegalDataException;
-import ilsia.sabirzianova.drones.model.Medication;
-import ilsia.sabirzianova.drones.repository.MedicationCrudRepository;
+import ilsia.sabirzianova.dcs.entity.MedicationEntity;
+import ilsia.sabirzianova.dcs.exceptions.IllegalDataException;
+import ilsia.sabirzianova.dcs.model.Medication;
+import ilsia.sabirzianova.dcs.repository.MedicationCrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

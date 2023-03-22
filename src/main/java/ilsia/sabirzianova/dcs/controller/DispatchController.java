@@ -1,7 +1,7 @@
-package ilsia.sabirzianova.drones.controller;
+package ilsia.sabirzianova.dcs.controller;
 
-import ilsia.sabirzianova.drones.entity.DroneEntity;
-import ilsia.sabirzianova.drones.entity.MedicationEntity;
+import ilsia.sabirzianova.dcs.entity.DroneEntity;
+import ilsia.sabirzianova.dcs.entity.MedicationEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

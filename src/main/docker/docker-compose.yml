@@ -2,7 +2,7 @@ version: '2'
 
 services:
   app:
-    image: 'drones:latest'
+    image: 'dcs:latest'
     build:
       context: .
     container_name: app

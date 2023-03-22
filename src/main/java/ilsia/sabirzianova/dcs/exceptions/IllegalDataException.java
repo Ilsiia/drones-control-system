@@ -1,4 +1,4 @@
-package ilsia.sabirzianova.drones.exceptions;
+package ilsia.sabirzianova.dcs.exceptions;
 
 public class IllegalDataException extends Exception {
     public IllegalDataException(String msg) {

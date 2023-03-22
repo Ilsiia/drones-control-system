@@ -1,4 +1,4 @@
-package ilsia.sabirzianova.drones.enums;
+package ilsia.sabirzianova.dcs.enums;
 
 public enum DroneModel {
     Lightweight, Middleweight, Cruiserweight, Heavyweight

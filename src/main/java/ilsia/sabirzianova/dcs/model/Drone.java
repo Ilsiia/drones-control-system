@@ -1,9 +1,9 @@
-package ilsia.sabirzianova.drones.model;
+package ilsia.sabirzianova.dcs.model;
 
-import ilsia.sabirzianova.drones.entity.MedicationEntity;
-import ilsia.sabirzianova.drones.enums.DroneModel;
-import ilsia.sabirzianova.drones.enums.DroneState;
-import ilsia.sabirzianova.drones.exceptions.LoadingException;
+import ilsia.sabirzianova.dcs.entity.MedicationEntity;
+import ilsia.sabirzianova.dcs.enums.DroneModel;
+import ilsia.sabirzianova.dcs.enums.DroneState;
+import ilsia.sabirzianova.dcs.exceptions.LoadingException;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;

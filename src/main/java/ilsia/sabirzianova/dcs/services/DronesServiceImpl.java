@@ -1,8 +1,8 @@
-package ilsia.sabirzianova.drones.services;
+package ilsia.sabirzianova.dcs.services;
 
-import ilsia.sabirzianova.drones.entity.DroneEntity;
-import ilsia.sabirzianova.drones.model.Drone;
-import ilsia.sabirzianova.drones.repository.DroneCrudRepository;
+import ilsia.sabirzianova.dcs.entity.DroneEntity;
+import ilsia.sabirzianova.dcs.model.Drone;
+import ilsia.sabirzianova.dcs.repository.DroneCrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,6 +1,6 @@
-package ilsia.sabirzianova.drones.entity;
+package ilsia.sabirzianova.dcs.entity;
 
-import ilsia.sabirzianova.drones.enums.DroneModel;
+import ilsia.sabirzianova.dcs.enums.DroneModel;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;

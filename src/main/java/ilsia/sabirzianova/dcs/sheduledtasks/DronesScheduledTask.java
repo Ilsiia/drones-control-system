@@ -1,6 +1,6 @@
-package ilsia.sabirzianova.drones.sheduledtasks;
+package ilsia.sabirzianova.dcs.sheduledtasks;
 
-import ilsia.sabirzianova.drones.services.DronesService;
+import ilsia.sabirzianova.dcs.services.DronesService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

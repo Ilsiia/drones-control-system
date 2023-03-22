@@ -1,4 +1,4 @@
-package ilsia.sabirzianova.drones;
+package ilsia.sabirzianova.dcs;
 
 import javax.validation.constraints.NotNull;
 

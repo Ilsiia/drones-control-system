@@ -1,4 +1,4 @@
-package ilsia.sabirzianova.drones.model;
+package ilsia.sabirzianova.dcs.model;
 
 public class Medication {
     private String name;//(allowed only letters, numbers, ‘-‘, ‘_’);

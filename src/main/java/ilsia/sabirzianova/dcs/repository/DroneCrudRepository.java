@@ -1,6 +1,6 @@
-package ilsia.sabirzianova.drones.repository;
+package ilsia.sabirzianova.dcs.repository;
 
-import ilsia.sabirzianova.drones.entity.DroneEntity;
+import ilsia.sabirzianova.dcs.entity.DroneEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

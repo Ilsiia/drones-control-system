@@ -1,4 +1,4 @@
-package ilsia.sabirzianova.drones.exceptions;
+package ilsia.sabirzianova.dcs.exceptions;
 
 public class LoadingException extends RuntimeException {
     public LoadingException(String msg) {

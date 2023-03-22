@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>ilsia.sabirzianova</groupId>
-    <artifactId>drones</artifactId>
+    <artifactId>dcs</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>drones</name>
+    <name>drones-control-system</name>
     <description>Musala task</description>
     <properties>
         <java.version>11</java.version>

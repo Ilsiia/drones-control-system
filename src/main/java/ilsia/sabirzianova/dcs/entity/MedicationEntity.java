@@ -1,8 +1,8 @@
-package ilsia.sabirzianova.drones.entity;
+package ilsia.sabirzianova.dcs.entity;
 
 
-import ilsia.sabirzianova.drones.MedicationDataChecker;
-import ilsia.sabirzianova.drones.exceptions.IllegalDataException;
+import ilsia.sabirzianova.dcs.MedicationDataChecker;
+import ilsia.sabirzianova.dcs.exceptions.IllegalDataException;
 
 import javax.persistence.*;
 

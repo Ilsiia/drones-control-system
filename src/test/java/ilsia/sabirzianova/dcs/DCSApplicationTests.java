@@ -1,9 +1,9 @@
-package ilsia.sabirzianova.drones;
+package ilsia.sabirzianova.dcs;
 
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class DronesApplicationTests {
+class DCSApplicationTests {
 
 /*	@Test
 	void contextLoads() {
