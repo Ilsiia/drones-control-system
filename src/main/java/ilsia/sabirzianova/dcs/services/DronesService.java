@@ -1,8 +1,8 @@
 package ilsia.sabirzianova.dcs.services;
 
-import ilsia.sabirzianova.dcs.model.Drone;
+import ilsia.sabirzianova.dcs.entity.DroneEntity;
 
 public interface DronesService {
-    void register(Drone drone);// registering a drone;
+    DroneEntity register(DroneEntity drone);// registering a drone;
 
 }

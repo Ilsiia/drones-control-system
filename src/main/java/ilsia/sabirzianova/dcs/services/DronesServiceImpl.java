@@ -12,8 +12,8 @@ public class DronesServiceImpl implements DronesService {
     private DroneCrudRepository droneCrudRepository;
 
     @Override
-    public void register(Drone drone) {
-        droneCrudRepository.save(createEntity(drone));
+    public DroneEntity register(DroneEntity drone) {
+        return droneCrudRepository.save(drone);
     }
 
     private DroneEntity createEntity(Drone drone) {
