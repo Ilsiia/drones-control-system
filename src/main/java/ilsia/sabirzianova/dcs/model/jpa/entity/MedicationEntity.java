@@ -1,4 +1,4 @@
-package ilsia.sabirzianova.dcs.entity;
+package ilsia.sabirzianova.dcs.model.jpa.entity;
 
 
 import ilsia.sabirzianova.dcs.MedicationDataChecker;

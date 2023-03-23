@@ -6,7 +6,7 @@ public class MedicationDataChecker {
 
     //(allowed only letters, numbers, ‘-‘, ‘_’);
     public static boolean checkName(@NotNull String name) {
-        return name.matches("^[/w_-]*$");
+        return name.matches("^[A-Za-z0-9_-]*$");
     }
     // (allowed only upper case letters, underscore and numbers);
     public static boolean checkCode(String code){

@@ -1,9 +1,9 @@
 package ilsia.sabirzianova.dcs.model;
 
-import ilsia.sabirzianova.dcs.entity.MedicationEntity;
-import ilsia.sabirzianova.dcs.enums.DroneModel;
-import ilsia.sabirzianova.dcs.enums.DroneState;
 import ilsia.sabirzianova.dcs.exceptions.LoadingException;
+import ilsia.sabirzianova.dcs.model.enums.DroneModel;
+import ilsia.sabirzianova.dcs.model.enums.DroneState;
+import ilsia.sabirzianova.dcs.model.jpa.entity.MedicationEntity;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -94,7 +94,7 @@ public class Drone {
     public Integer getLoadedMedicationsWeight() {
         int result = 0;
         for (MedicationEntity medication : this.getMedications()) {
-            result = +medication.getWeight();
+            result = result + medication.getWeight();
         }
         return result;
     }
