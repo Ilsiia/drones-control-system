@@ -1,6 +1,6 @@
 package ilsia.sabirzianova.dcs.model;
 
-import ilsia.sabirzianova.dcs.exceptions.LoadingException;
+import ilsia.sabirzianova.dcs.exceptions.DcsAppException;
 import ilsia.sabirzianova.dcs.model.enums.DroneModel;
 import ilsia.sabirzianova.dcs.model.enums.DroneState;
 import ilsia.sabirzianova.dcs.model.jpa.entity.MedicationEntity;
@@ -14,10 +14,10 @@ public class Drone {
     Integer batteryCapacity; // percentage
     DroneModel model;//(Lightweight, Middleweight, Cruiserweight, Heavyweight)
     Integer weightLimit;//500gr max;
-    List<MedicationEntity> medications;
+    List<Medication> medications;
     DroneState state; //IDLE, LOADING, LOADED, DELIVERING, DELIVERED, RETURNING
 
-    public Drone(String serialNumber, Integer batteryCapacity, DroneModel model, Integer weightLimit, List<MedicationEntity> medications, DroneState state) {
+    public Drone(String serialNumber, Integer batteryCapacity, DroneModel model, Integer weightLimit, List<Medication> medications, DroneState state) {
         this.serialNumber = serialNumber;
         this.batteryCapacity = batteryCapacity;
         this.model = model;
@@ -58,32 +58,32 @@ public class Drone {
         this.weightLimit = weightLimit;
     }
 
-    public List<MedicationEntity> getMedications() {
+    public List<Medication> getMedications() {
         if (medications == null) {
             medications = new ArrayList<>();
         }
         return medications;
     }
 
-    public void setMedications(List<MedicationEntity> medications) {
+    public void setMedications(List<Medication> medications) {
         this.medications = medications;
     }
 
-    public void load(@NotNull MedicationEntity medication) {
+    public void load(@NotNull Medication medication) {
         if (getLoadedMedicationsWeight() + medication.getWeight() < this.weightLimit) {
             this.getMedications().add(medication);
         } else {
-            throw new LoadingException("Drone with serial number %s reached cargo weight limit.");
+            throw new DcsAppException(String.format("Drone with serial number %s reached cargo weight limit.", serialNumber));
         }
     }
 
-    public void loadAll(@NotNull List<MedicationEntity> medications) {
-        for (MedicationEntity medication : medications) {
+    public void loadAll(@NotNull List<Medication> medications) {
+        for (Medication medication : medications) {
             this.load(medication);
         }
     }
 
-    public void unload(@NotNull MedicationEntity medication) {
+    public void unload(@NotNull Medication medication) {
         this.getMedications().remove(medication);
     }
 
@@ -93,7 +93,7 @@ public class Drone {
 
     public Integer getLoadedMedicationsWeight() {
         int result = 0;
-        for (MedicationEntity medication : this.getMedications()) {
+        for (Medication medication : this.getMedications()) {
             result = result + medication.getWeight();
         }
         return result;

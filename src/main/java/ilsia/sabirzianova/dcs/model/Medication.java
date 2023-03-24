@@ -1,24 +1,16 @@
 package ilsia.sabirzianova.dcs.model;
 
 public class Medication {
-    private String name;//(allowed only letters, numbers, ‘-‘, ‘_’);
+    private String name;
     private Integer weight;
-    private String code;// (allowed only upper case letters, underscore and numbers);
-    private byte[] image; // (picture of the medication case).
+    private String code;
+    private String imageUrl;
 
-    public Medication(String name, Integer weight, String code, byte[] image) {
+    public Medication(String name, Integer weight, String code, String imageUrl) {
         this.name = name;
         this.weight = weight;
         this.code = code;
-        this.image = image;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+        this.imageUrl = imageUrl;
     }
 
     public Integer getWeight() {
@@ -37,11 +29,19 @@ public class Medication {
         this.code = code;
     }
 
-    public byte[] getImage() {
-        return image;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

@@ -1,7 +1,7 @@
 package ilsia.sabirzianova.dcs.services;
 
-import ilsia.sabirzianova.dcs.exceptions.IllegalDataException;
 import ilsia.sabirzianova.dcs.model.Medication;
+import ilsia.sabirzianova.dcs.model.jpa.entity.LobContainer;
 import ilsia.sabirzianova.dcs.model.jpa.entity.MedicationEntity;
 import ilsia.sabirzianova.dcs.model.jpa.repository.MedicationCrudRepository;
 import org.apache.commons.io.IOUtils;
@@ -12,23 +12,32 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.io.IOException;
+import javax.validation.constraints.NotNull;
 import java.io.InputStream;
 
 @Service
 public class MedicationServiceImpl implements MedicationService {
     Logger logger = LoggerFactory.getLogger(MedicationServiceImpl.class);
-
     @Autowired
     MedicationCrudRepository repository;
 
     @Override
-    public void register(Medication medication) throws IllegalDataException {
-        repository.save(createEntity(medication));
+    public void register(MedicationEntity medication) {
+        repository.save(medication);
     }
 
-    private MedicationEntity createEntity(Medication medication) throws IllegalDataException {
-        return new MedicationEntity(medication.getName(), medication.getWeight(), medication.getCode(), medication.getImage());
+    @Override
+    public MedicationEntity findByCode(String code) {
+        return repository.findByCode(code);
+    }
+
+    @Override
+    public Medication convert(@NotNull MedicationEntity entity) {
+        return new Medication(entity.getName(),entity.getWeight(),entity.getCode(), null);
+    }
+
+    private MedicationEntity createEntity(MedicationEntity medication) {
+        return new MedicationEntity(medication.getName(), medication.getWeight(), medication.getCode(), medication.getLob());
     }
 
     @PostConstruct
@@ -43,11 +52,11 @@ public class MedicationServiceImpl implements MedicationService {
                 byte[] data_2 = IOUtils.toByteArray(file_2);
                 byte[] data_3 = IOUtils.toByteArray(file_3);
                 byte[] data_4 = IOUtils.toByteArray(file_4);
-                register(new Medication("nurofen", 100, "CODE_1", data_1));
-                register(new Medication("polisorb", 300, "CODE_2", data_2));
-                register(new Medication("tamiflu", 30, "CODE_3", data_3));
-                register(new Medication("zodak", 60, "CODE_4", data_4));
-            } catch (IOException | IllegalDataException e) {
+                register(new MedicationEntity("nurofen", 100, "CODE_1", new LobContainer(data_1)));
+                register(new MedicationEntity("polisorb", 300, "CODE_2", new LobContainer(data_2)));
+                register(new MedicationEntity("tamiflu", 30, "CODE_3", new LobContainer(data_3)));
+                register(new MedicationEntity("zodak", 60, "CODE_4", new LobContainer(data_4)));
+            } catch (Exception e) {
                 logger.error(e.getMessage(), e);
             } finally {
                 logger.info("MEDICATION is filled.");
