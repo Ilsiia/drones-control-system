@@ -39,6 +39,9 @@ http://localhost:18080/drones/register
 "weightLimit": "50"}
 ### Loading a drone with medication items
 http://localhost:18080/drones/load
+#### JSON example
+{"droneSerialNum":"kjsh_oiui0003",
+"medicationCode":"CODE_3"}
 ### Checking loaded medication items for a given drone
 http://localhost:18080/drones/medication?droneSerialNum=kjsh_oiui0003
 ### Checking available drones for loading

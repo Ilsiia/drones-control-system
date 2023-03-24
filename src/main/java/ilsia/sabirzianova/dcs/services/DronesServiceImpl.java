@@ -82,6 +82,9 @@ public class DronesServiceImpl implements DronesService {
 
     @Override
     public void nextState(Drone drone) {
+        if (DroneState.DELIVERED.equals(drone.getState().next())) {
+            drone.getMedications().clear();
+        }
         drone.nextState();
         eventPublisher.publicDroneEvent("State changed", drone);
     }

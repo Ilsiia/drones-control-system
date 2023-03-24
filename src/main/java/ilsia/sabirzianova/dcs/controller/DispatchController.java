@@ -53,6 +53,7 @@ public class DispatchController {
             return ResponseEntity.noContent().build();
         }
         dronesService.load(json.get("droneSerialNum"), medicationService.convert(medication));
+        log.info("Drone {} loaded with medication {}", json.get("droneSerialNum"), json.get("medicationCode"));
         return ResponseEntity.ok().body("Drone loaded");
     }
 
@@ -62,12 +63,14 @@ public class DispatchController {
         for (Medication medication : medications) {
             medication.setImageUrl("http://localhost:18080/drones/show/medication?code=" + medication.getCode());
         }
+        log.info("Medications for drone {} loaded.", droneSerialNum);
         return ResponseEntity.ok().body(medications);
     }
 
     @RequestMapping(value = "/show/medication", produces = MediaType.IMAGE_PNG_VALUE)
     public @ResponseBody byte[] showMedicationImage(@RequestParam("code") String medicationCode) {
         MedicationEntity medication = medicationService.findByCode(medicationCode);
+        log.info("Medication image loaded.");
         return medication.getLob().getImage();
     }
 
