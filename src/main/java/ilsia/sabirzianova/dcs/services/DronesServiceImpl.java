@@ -6,21 +6,32 @@ import ilsia.sabirzianova.dcs.model.Drone;
 import ilsia.sabirzianova.dcs.model.Medication;
 import ilsia.sabirzianova.dcs.model.enums.DroneState;
 import ilsia.sabirzianova.dcs.model.jpa.entity.DroneEntity;
+import ilsia.sabirzianova.dcs.model.jpa.entity.History;
 import ilsia.sabirzianova.dcs.model.jpa.repository.DroneCrudRepository;
+import ilsia.sabirzianova.dcs.model.jpa.repository.HistoryCrudRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
-import java.util.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Service("droneService")
 public class DronesServiceImpl implements DronesService {
+    Logger log = LoggerFactory.getLogger(DronesServiceImpl.class);
     @Autowired
     private DroneCrudRepository droneCrudRepository;
+    @Autowired
+    private HistoryCrudRepository historyCrudRepository;
     ExecutorService executor = Executors.newFixedThreadPool(5);
     @Autowired
     DroneEventPublisher eventPublisher;
@@ -77,6 +88,8 @@ public class DronesServiceImpl implements DronesService {
         } else {
             newBatteryLevel = 100;
         }
+        historyCrudRepository.save(new History(newBatteryLevel, droneCrudRepository.findBySerialNumber(drone.getSerialNumber()), LocalDateTime.now()));
+        log.info("{}% battery Level for drone {}", newBatteryLevel, drone.getSerialNumber());
         return newBatteryLevel;
     }
 

@@ -36,10 +36,6 @@ public class MedicationServiceImpl implements MedicationService {
         return new Medication(entity.getName(),entity.getWeight(),entity.getCode(), null);
     }
 
-    private MedicationEntity createEntity(MedicationEntity medication) {
-        return new MedicationEntity(medication.getName(), medication.getWeight(), medication.getCode(), medication.getLob());
-    }
-
     @PostConstruct
     private void fillData() {
         if (!repository.findAll().iterator().hasNext()) {
