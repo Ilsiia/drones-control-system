@@ -105,4 +105,8 @@ public class Drone {
     public void setState(DroneState state) {
         this.state = state;
     }
+
+    public void nextState() {
+        setState(getState().next());
+    }
 }

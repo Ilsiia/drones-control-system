@@ -1,5 +1,6 @@
 package ilsia.sabirzianova.dcs.services;
 
+import ilsia.sabirzianova.dcs.behavior_simulation.eventlistener.DroneEventPublisher;
 import ilsia.sabirzianova.dcs.exceptions.DcsAppException;
 import ilsia.sabirzianova.dcs.model.Drone;
 import ilsia.sabirzianova.dcs.model.Medication;
@@ -7,20 +8,22 @@ import ilsia.sabirzianova.dcs.model.enums.DroneState;
 import ilsia.sabirzianova.dcs.model.jpa.entity.DroneEntity;
 import ilsia.sabirzianova.dcs.model.jpa.repository.DroneCrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Service("droneService")
 public class DronesServiceImpl implements DronesService {
     @Autowired
     private DroneCrudRepository droneCrudRepository;
-
+    ExecutorService executor = Executors.newFixedThreadPool(5);
+    @Autowired
+    DroneEventPublisher eventPublisher;
     private final Map<String, Drone> activeDrones = new HashMap<>();
 
     @Override
@@ -40,6 +43,7 @@ public class DronesServiceImpl implements DronesService {
         } else {
             throw new DcsAppException(String.format(("Drone %s can't be loaded, battery is low"), drone.getSerialNumber()));
         }
+        nextState(drone);
     }
 
     @Override
@@ -61,7 +65,33 @@ public class DronesServiceImpl implements DronesService {
 
     @Override
     public Integer checkBatteryLevel(String droneSerialNum) {
+        sendCheckBatteryRequest(activeDrones.get(droneSerialNum));
         return activeDrones.get(droneSerialNum).getBatteryCapacity();
+    }
+
+    private Integer sendCheckBatteryRequest(Drone drone) {
+        Integer currentBatteryLevel = drone.getBatteryCapacity();
+        int newBatteryLevel;
+        if (currentBatteryLevel > 0) {
+            newBatteryLevel = currentBatteryLevel - 5;
+        } else {
+            newBatteryLevel = 100;
+        }
+        return newBatteryLevel;
+    }
+
+    @Override
+    public void nextState(Drone drone) {
+        drone.nextState();
+        eventPublisher.publicDroneEvent("State changed", drone);
+    }
+
+    @Scheduled(fixedDelay = 5 * 60 * 1000)
+    public void checkBattery() {
+        for (Map.Entry<String, Drone> drone : activeDrones.entrySet()) {
+            Runnable task = () -> drone.getValue().setBatteryCapacity(sendCheckBatteryRequest(drone.getValue()));
+            executor.execute(task);
+        }
     }
 
     @PostConstruct

@@ -16,4 +16,6 @@ public interface DronesService {
     List<Drone> getAvailableDrones();
 
     Integer checkBatteryLevel(String droneSerialNum);
+
+    void nextState(Drone drone);
 }

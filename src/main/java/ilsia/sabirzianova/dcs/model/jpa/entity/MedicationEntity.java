@@ -1,7 +1,7 @@
 package ilsia.sabirzianova.dcs.model.jpa.entity;
 
 
-import ilsia.sabirzianova.dcs.MedicationDataChecker;
+import ilsia.sabirzianova.dcs.model.MedicationDataChecker;
 import ilsia.sabirzianova.dcs.exceptions.DcsAppException;
 
 import javax.persistence.*;

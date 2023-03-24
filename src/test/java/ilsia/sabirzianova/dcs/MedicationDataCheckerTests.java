@@ -1,5 +1,6 @@
 package ilsia.sabirzianova.dcs;
 
+import ilsia.sabirzianova.dcs.model.MedicationDataChecker;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;

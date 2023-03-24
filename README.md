@@ -27,3 +27,21 @@ press Ctrl + C for escaping then, for stopping all services:
 ```bash
 docker-compose down
 ```
+
+## REST API
+#### Authorization
+User/Password
+### Registering a drone
+http://localhost:18080/drones/register
+#### JSON example
+{"serialNumber":"kjsh_oiui0003",
+"model": "Lightweight",
+"weightLimit": "50"}
+### Loading a drone with medication items
+http://localhost:18080/drones/load
+### Checking loaded medication items for a given drone
+http://localhost:18080/drones/medication?droneSerialNum=kjsh_oiui0003
+### Checking available drones for loading
+http://localhost:18080/drones/available
+### Check drone battery level for a given drone
+http://localhost:18080/drones/battery?droneSerialNum=kjsh_oiui0003

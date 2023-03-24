@@ -1,4 +1,4 @@
-package ilsia.sabirzianova.dcs;
+package ilsia.sabirzianova.dcs.model;
 
 import javax.validation.constraints.NotNull;
 
