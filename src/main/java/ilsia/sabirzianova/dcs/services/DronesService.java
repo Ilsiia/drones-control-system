@@ -1,5 +1,6 @@
 package ilsia.sabirzianova.dcs.services;
 
+import ilsia.sabirzianova.dcs.model.Drone;
 import ilsia.sabirzianova.dcs.model.Medication;
 import ilsia.sabirzianova.dcs.model.jpa.entity.DroneEntity;
 
@@ -11,4 +12,8 @@ public interface DronesService {
     void load(String droneSerialNum, Medication medication);
 
     List<Medication> getDroneMedicationList(String droneSerialNum);
+
+    List<Drone> getAvailableDrones();
+
+    Integer checkBatteryLevel(String droneSerialNum);
 }

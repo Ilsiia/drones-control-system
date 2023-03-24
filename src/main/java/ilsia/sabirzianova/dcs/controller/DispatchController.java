@@ -1,5 +1,6 @@
 package ilsia.sabirzianova.dcs.controller;
 
+import ilsia.sabirzianova.dcs.model.Drone;
 import ilsia.sabirzianova.dcs.model.Medication;
 import ilsia.sabirzianova.dcs.model.jpa.entity.DroneEntity;
 import ilsia.sabirzianova.dcs.model.jpa.entity.MedicationEntity;
@@ -70,17 +71,21 @@ public class DispatchController {
         return medication.getLob().getImage();
     }
 
-    public List<DroneEntity> checkAvailableDrones() {
-        return null;
+    @GetMapping("/available")
+    public ResponseEntity<List<Drone>> checkAvailableDrones() {
+        return ResponseEntity.ok().body(dronesService.getAvailableDrones());
     }
 
-    public void checkBattery(DroneEntity drone) {
+    @GetMapping("/battery")
+    public ResponseEntity<Integer> checkBattery(@RequestParam String droneSerialNum) {
+        Integer result = dronesService.checkBatteryLevel(droneSerialNum);
+        return ResponseEntity.ok().body(result);
     }
 
     @ControllerAdvice
     public static class ExceptionHandlerAdvice {
         @ExceptionHandler(RuntimeException.class)
-        public ResponseEntity handleException(RuntimeException e) {
+        public ResponseEntity<String> handleException(RuntimeException e) {
             log.error(e.getMessage(), e);
             return ResponseEntity
                     .status(HttpStatus.FORBIDDEN)

@@ -3,7 +3,6 @@ package ilsia.sabirzianova.dcs.model;
 import ilsia.sabirzianova.dcs.exceptions.DcsAppException;
 import ilsia.sabirzianova.dcs.model.enums.DroneModel;
 import ilsia.sabirzianova.dcs.model.enums.DroneState;
-import ilsia.sabirzianova.dcs.model.jpa.entity.MedicationEntity;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;

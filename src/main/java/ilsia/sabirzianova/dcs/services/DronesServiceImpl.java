@@ -1,5 +1,6 @@
 package ilsia.sabirzianova.dcs.services;
 
+import ilsia.sabirzianova.dcs.exceptions.DcsAppException;
 import ilsia.sabirzianova.dcs.model.Drone;
 import ilsia.sabirzianova.dcs.model.Medication;
 import ilsia.sabirzianova.dcs.model.enums.DroneState;
@@ -34,13 +35,34 @@ public class DronesServiceImpl implements DronesService {
     @Override
     public void load(@NotNull String droneSerialNum, @NotNull Medication medication) {
         Drone drone = activeDrones.get(droneSerialNum);
-        drone.load(medication);
+        if (drone.getBatteryCapacity() > 25) {
+            drone.setState(DroneState.LOADING);
+            drone.load(medication);
+        } else {
+            throw new DcsAppException(String.format(("Drone %s can't be loaded, battery is low"), drone.getSerialNumber()));
+        }
     }
 
     @Override
     public List<Medication> getDroneMedicationList(@NotNull String droneSerialNum) {
         Drone drone = activeDrones.get(droneSerialNum);
         return drone.getMedications();
+    }
+
+    @Override
+    public List<Drone> getAvailableDrones() {
+        List<Drone> result = new ArrayList<>();
+        activeDrones.forEach((key, value) -> {
+            if (value.getState() == DroneState.IDLE) {
+                result.add(value);
+            }
+        });
+        return result;
+    }
+
+    @Override
+    public Integer checkBatteryLevel(String droneSerialNum) {
+        return activeDrones.get(droneSerialNum).getBatteryCapacity();
     }
 
     private DroneEntity createEntity(Drone drone) {
