@@ -21,7 +21,6 @@ public class DronesServiceImpl implements DronesService {
     @Autowired
     private DroneCrudRepository droneCrudRepository;
 
-
     private final Map<String, Drone> activeDrones = new HashMap<>();
 
     @Override
@@ -63,10 +62,6 @@ public class DronesServiceImpl implements DronesService {
     @Override
     public Integer checkBatteryLevel(String droneSerialNum) {
         return activeDrones.get(droneSerialNum).getBatteryCapacity();
-    }
-
-    private DroneEntity createEntity(Drone drone) {
-        return new DroneEntity(drone.getSerialNumber(), drone.getModel(), drone.getWeightLimit());
     }
 
     @PostConstruct

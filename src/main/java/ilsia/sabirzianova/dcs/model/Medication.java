@@ -1,6 +1,6 @@
 package ilsia.sabirzianova.dcs.model;
 
-public class Medication {
+public class Medication implements Cargo{
     private String name;
     private Integer weight;
     private String code;
